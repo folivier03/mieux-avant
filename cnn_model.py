@@ -147,15 +147,16 @@ es_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
 
 #parameters MLflow
 
-epochs = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-optimizer_name = string(sys.argv[2]) if len(sys.argv) > 2 else 'Adam'
+epochs = int(sys.argv[1]) if len(sys.argv) > 1 else 10
+optimizer_name = str(sys.argv[2]) if len(sys.argv) > 2 else 'Adam'
+learning_rate = float(sys.argv[3]) if len(sys.argv)> 3 else 0.01
 # #
 #model MLflow
 mlflow.keras.autolog()
 #
 def train(epochs, optimizer_name):
     with mlflow.start_run(run_name ='tracking cnn model') as run:
-        model_3.compile(optimizer = optimizer_name , loss='categorical_crossentropy', metrics=['accuracy'])
+        model_3.compile(optimizer = optimizer_name (learning_rate), loss='categorical_crossentropy', metrics=['accuracy'])
         results = model_3.fit_generator(train_generator, epochs= epochs, callbacks=[es_callback], validation_data=(validation_generator))
         return(run.info.experiment_id, run.info.run_id)
 

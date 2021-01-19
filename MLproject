@@ -1,0 +1,7 @@
+name: My_Project
+entry_points:
+  main:
+    parameters:
+        optimizer_name: {type: string, default: Adam}
+        epochs: {type: int, default: 10}
+    command: "python cnn_model.py {optimizer_name} {epochs}"
