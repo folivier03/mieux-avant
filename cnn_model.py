@@ -141,7 +141,7 @@ model_3.add(Dense(5, activation='softmax'))
 model_3.summary()
 
 # model compile and model training
-model_3.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+# model_3.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 es_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
 #training = model_3.fit_generator(train_generator, epochs=50, callbacks=[es_callback], validation_data=(validation_generator))
 
@@ -149,14 +149,14 @@ es_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
 
 epochs = int(sys.argv[1]) if len(sys.argv) > 1 else 10
 optimizer_name = str(sys.argv[2]) if len(sys.argv) > 2 else 'Adam'
-learning_rate = float(sys.argv[3]) if len(sys.argv)> 3 else 0.01
+#learning_rate = float(sys.argv[3]) if len(sys.argv)> 3 else 0.01
 # #
 #model MLflow
 mlflow.keras.autolog()
 #
 def train(epochs, optimizer_name):
     with mlflow.start_run(run_name ='tracking cnn model') as run:
-        model_3.compile(optimizer = optimizer_name (learning_rate), loss='categorical_crossentropy', metrics=['accuracy'])
+        model_3.compile(optimizer = optimizer_name, loss='categorical_crossentropy', metrics=['accuracy'])
         results = model_3.fit_generator(train_generator, epochs= epochs, callbacks=[es_callback], validation_data=(validation_generator))
         return(run.info.experiment_id, run.info.run_id)
 
